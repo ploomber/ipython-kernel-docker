@@ -1,5 +1,8 @@
 {
-  "argv": ["./start-kernel.sh", "{connection_file}"],
-  "display_name": "Dockerized Python 3",
+  "argv": [
+    "./start-kernel.sh",
+    "{connection_file}"
+  ],
+  "display_name": "ipython-kernel-docker",
   "language": "python"
 }

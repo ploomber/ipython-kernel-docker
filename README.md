@@ -14,7 +14,7 @@ Build the docker image. The docker container will launch a kernel running Python
 make build
 ```
 
-Make Jupyter aware of our kernel
+Make Jupyter aware of our kernel (must be executed in an environment with Jupyter installed)
 
 ```
 make install
