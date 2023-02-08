@@ -1,0 +1,35 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version: [ '3.11']
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+
+      - name: Build image
+        run: |
+          make build
+
+      - name: Install kernel
+        run: |
+          make install
+
+      - name: Test
+        run: |
+          python -m pip install --upgrade pip
+          pip install papermill
+          papermill test.ipynb out.ipynb --kernel ipython-kernel-docker
