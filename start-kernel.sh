@@ -33,6 +33,11 @@ sed -i.bu 's;127.0.0.1;0.0.0.0;' "${connection_file}"
 echo CONN FILE
 cat $connection_file
 
+# looks like network=host won't work on docker desktop
+# https://docs.docker.com/network/network-tutorial-host/#procedure
+
+# dockernel is another alternative: https://stackoverflow.com/a/63715102/709975
+
 # Run docker image with the connection file mounted in, and ports forwarded
 # --rm
 docker run  --rm \
@@ -42,6 +47,7 @@ docker run  --rm \
     -p $STDIN_PORT:$STDIN_PORT \
     -p $HB_PORT:$HB_PORT \
     -p $IOPUB_PORT:$IOPUB_PORT \
+    --memory=100m \
     $DOCKER_IMAGE \
     python -m ipykernel_launcher -f /tmp/connection-file.json --logfile /kernel.log -ip 0.0.0.0 --log-level DEBUG
 

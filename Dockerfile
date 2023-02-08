@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     netcat
 
-RUN conda install ipython ipykernel -c conda-forge -y
+RUN conda install ipython ipykernel numpy -c conda-forge -y
 
 COPY entrypoint.sh entrypoint.sh
 
