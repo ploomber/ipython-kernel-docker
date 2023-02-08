@@ -33,5 +33,4 @@ jobs:
 
       - name: Test
         run: |
-          pip install papermill
           papermill test.ipynb out.ipynb --kernel ipython-kernel-docker

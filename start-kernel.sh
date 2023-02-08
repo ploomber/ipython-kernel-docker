@@ -41,7 +41,7 @@ cat $connection_file
 # Run docker image with the connection file mounted in, and ports forwarded
 # --rm
 docker run  --rm \
-    -v $connection_file:/tmp/connection-file.json \
+    -v $connection_file:/connection-file.json \
     -p $CONTROL_PORT:$CONTROL_PORT \
     -p $SHELL_PORT:$SHELL_PORT \
     -p $STDIN_PORT:$STDIN_PORT \
@@ -49,7 +49,7 @@ docker run  --rm \
     -p $IOPUB_PORT:$IOPUB_PORT \
     --memory=100m \
     $DOCKER_IMAGE \
-    python -m ipykernel_launcher -f /tmp/connection-file.json --logfile /kernel.log -ip 0.0.0.0 --log-level DEBUG
+    python -m ipykernel_launcher -f /connection-file.json --logfile /kernel.log -ip 0.0.0.0 --log-level DEBUG
 
 
 
@@ -58,4 +58,4 @@ docker run  --rm \
 
 echo launched
 
-# docker run --network=host -v -v $connection_file:/tmp/connection-file.json $DOCKER_IMAGE
+# docker run --network=host -v -v $connection_file:/connection-file.json $DOCKER_IMAGE

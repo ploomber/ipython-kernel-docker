@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 1 ]; then
-    connection_file=/tmp/connection-file.json
+    connection_file=/connection-file.json
 else
     connection_file=$1
 fi
