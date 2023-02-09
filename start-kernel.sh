@@ -13,7 +13,6 @@ DOCKER_IMAGE=python-kernel
 # This thing should be a full path by Jupyter
 connection_file=$1
 
-
 # Get the port number out
 # Here we assume the local machine has JQ installed
 SHELL_PORT=$(jq '.shell_port' < $connection_file)
@@ -21,12 +20,6 @@ IOPUB_PORT=$(jq '.iopub_port' < $connection_file)
 STDIN_PORT=$(jq '.stdin_port' < $connection_file)
 CONTROL_PORT=$(jq '.control_port' < $connection_file)
 HB_PORT=$(jq '.hb_port' < $connection_file)
-
-# echo control ${CONTROL_PORT}
-# echo shell ${SHELL_PORT}
-# echo stdin ${STDIN_PORT}
-# echo hb ${HB_PORT}
-# echo iopub ${IOPUB_PORT}
 
 sed -i.bu 's;127.0.0.1;0.0.0.0;' "${connection_file}"
 
@@ -39,7 +32,6 @@ cat $connection_file
 # dockernel is another alternative: https://stackoverflow.com/a/63715102/709975
 
 # Run docker image with the connection file mounted in, and ports forwarded
-# --rm
 docker run  --rm \
     -v $connection_file:/connection-file.json \
     -p $CONTROL_PORT:$CONTROL_PORT \
@@ -50,12 +42,3 @@ docker run  --rm \
     --memory=100m \
     $DOCKER_IMAGE \
     python -m ipykernel_launcher -f /connection-file.json --logfile /kernel.log -ip 0.0.0.0 --log-level DEBUG
-
-
-
-
-# python -m ipykernel_launcher -f $connection_file --ip 0.0.0.0 
-
-echo launched
-
-# docker run --network=host -v -v $connection_file:/connection-file.json $DOCKER_IMAGE
