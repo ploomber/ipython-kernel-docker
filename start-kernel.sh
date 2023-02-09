@@ -38,4 +38,7 @@ docker run  --rm \
     -p $IOPUB_PORT:$IOPUB_PORT \
     --memory=100m \
     $DOCKER_IMAGE \
-    python -m ipykernel_launcher -f /connection-file.json --logfile /kernel.log -ip 0.0.0.0 --log-level DEBUG
+    python -m ipykernel_launcher -f /connection-file.json -ip 0.0.0.0
+    
+# NOTE: to debug, pass --log-level DEBUG to python -m ipykernel_launcher
+# I also passed --logfile /kernel.log but the file didn't contain anything
