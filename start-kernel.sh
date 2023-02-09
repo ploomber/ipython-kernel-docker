@@ -23,10 +23,7 @@ HB_PORT=$(jq '.hb_port' < $connection_file)
 
 sed -i.bu 's;127.0.0.1;0.0.0.0;' "${connection_file}"
 
-echo CONN FILE
-cat $connection_file
-
-# looks like network=host won't work on docker desktop
+# NOTE: network=host won't work if using Docker Desktop
 # https://docs.docker.com/network/network-tutorial-host/#procedure
 
 # dockernel is another alternative: https://stackoverflow.com/a/63715102/709975
