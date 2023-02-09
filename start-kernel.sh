@@ -21,7 +21,7 @@ STDIN_PORT=$(jq '.stdin_port' < $connection_file)
 CONTROL_PORT=$(jq '.control_port' < $connection_file)
 HB_PORT=$(jq '.hb_port' < $connection_file)
 
-sed -i.bu 's;127.0.0.1;0.0.0.0;' "${connection_file}"
+# sed -i.bu 's;127.0.0.1;0.0.0.0;' "${connection_file}"
 
 # NOTE: network=host won't work if using Docker Desktop
 # https://docs.docker.com/network/network-tutorial-host/#procedure
@@ -38,7 +38,7 @@ docker run  --rm \
     -p $IOPUB_PORT:$IOPUB_PORT \
     --memory=100m \
     $DOCKER_IMAGE \
-    python -m ipykernel_launcher -f /connection-file.json -ip 0.0.0.0
-    
+    python -m ipykernel_launcher -f /connection-file.json #-ip 0.0.0.0
+
 # NOTE: to debug, pass --log-level DEBUG to python -m ipykernel_launcher
 # I also passed --logfile /kernel.log but the file didn't contain anything
