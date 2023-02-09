@@ -1,4 +1,8 @@
 IMAGE_NAME=python-kernel
+env:
+	conda create --name kernel-docker python=3.10 \
+	 jupyterlab papermill -y -c conda-forge
+
 build:
 	docker build --rm -t ${IMAGE_NAME} .
 
